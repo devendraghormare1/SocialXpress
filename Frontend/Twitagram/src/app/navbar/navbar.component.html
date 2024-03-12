@@ -1,0 +1,23 @@
+<nav>
+  <div class="container">
+    <h2 class="logo">
+      <a [routerLink]="authService.isLoggedIn() ? 'feed' : '/login/'">
+        <!-- Social Media -->
+        <img src="../../assets/logo-31.jpg">
+      </a>
+    </h2>
+    <div class="search-bar">
+      <i class="fa-solid fa-magnifying-glass"> </i>
+      <input type="search" placeholder="search anything" />
+    </div>
+    <div class="create">
+      <label class="btn btn-primary" for="create-post" routerLink="/posts/create" routerLinkActive="active"
+      *ngIf="authService.isLoggedIn()"><i class="fa-solid fa-upload"></i></label>
+      
+      <div class="profile-photo">
+        <img src="../../assets/images/profile-3.jpg" alt="" *ngIf="authService.isLoggedIn()"
+        routerLink="/users/{{ authService.getUser().username }}/profile"/>
+      </div>
+    </div>
+  </div>
+</nav>

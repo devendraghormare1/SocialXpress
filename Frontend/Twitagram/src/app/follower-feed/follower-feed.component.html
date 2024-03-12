@@ -1,0 +1,163 @@
+<!-- <div style="margin-bottom: 1rem" class="" *ngFor="let post of posts.slice().reverse()">
+  <div *ngIf="!reportedPosts.has(post.content)">
+    <div class="center">
+      <div class="tweet">
+        <div class="head">
+          <div class="name">
+            <div class="username">
+              <p>
+                <a routerLink="/users/{{ post.user }}/profile"><strong>{{ post.user }}:</strong></a>
+              </p>
+            </div>
+          </div>
+
+          <span class="material-symbols-outlined follow-btn" *ngIf="post.user !== authService.getUser().username">
+
+          </span>
+        </div>
+
+        <div class="content">
+          <div class="container">
+
+            <img *ngIf="isImage(post.media)" [src]="getCompleteImageUrl(post.media)" alt="Uploaded Image"
+              class="post-image">
+
+            <audio *ngIf="isAudio(post.media)" controls>
+              <source [src]="getCompleteImageUrl(post.media)" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+
+            <video *ngIf="isVideo(post.media)" controls>
+              <source [src]="getCompleteImageUrl(post.media)" type="video/mp4">
+              Your browser does not support the video element.
+            </video>
+
+
+            <h2>
+              <a>{{ post.title }}</a>
+            </h2>
+            <p>{{ post.content }}</p>
+            <div class="date">{{ post.date_posted | date : "mediumDate" }}</div>
+          </div>
+        </div>
+        
+        
+        <div class="controls">
+          <div class="material-symbols-outlined social-btn heart" (click)="likeOrUnlikePost(post)">
+            heart_plus
+          </div>
+          {{ post.likes_count}}
+        
+          <div class="editDeleteBtn">
+            <a (click)="deletePost(post)" *ngIf="post.user === authService.getUser().username" class="material-symbols-outlined social-btn del">Delete</a>
+          </div>
+
+          <div class="btn">
+            <div (click)="promptReason( post.content, post.user) " *ngIf="post.user !== authService.getUser().username">
+              <i class="fa-solid fa-flag"></i>
+            </div>
+          </div>
+
+        </div>
+        <div class="create-post">
+          <input type="text" placeholder="Add a Comment!!" [(ngModel)]="post.newComment" />
+          <input type="submit" value="Comment" class="btn btn-primary" (click)="addComment(post)" />
+        </div>
+
+        <div class="comment-feed" *ngIf="post.comments && post.comments.length">
+          <h4>Comments :</h4>
+          <div class="comment" *ngFor="let comment of post.comments">
+            <p>
+              <strong>@{{ comment.user }}:</strong> {{ comment.content }}
+            </p>
+            <p>{{ comment.created_at }}</p>
+          </div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+<div style="margin-bottom: 1rem" class="" *ngIf="posts.length > 0; else noPosts">
+  <div *ngFor="let post of posts.slice().reverse()" class="post-card">
+    <div >
+      <div class="center">
+        <div class="tweet">
+          <div class="head">
+            <div class="name">
+              <div class="username">
+                <p>
+                  <a routerLink="/users/{{ post.user }}/profile"><strong>{{ post.user }}:</strong></a>
+                </p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined follow-btn" *ngIf="post.user !== authService.getUser().username">
+            </span>
+          </div>
+          <div class="content">
+            <div class="container">
+              <img *ngIf="isImage(post.media)" [src]="getCompleteImageUrl(post.media)" alt="Uploaded Image"
+                class="post-image">
+              <audio *ngIf="isAudio(post.media)" controls>
+                <source [src]="getCompleteImageUrl(post.media)" type="audio/mpeg">
+                Your browser does not support the audio element.
+              </audio>
+              <video *ngIf="isVideo(post.media)" controls>
+                <source [src]="getCompleteImageUrl(post.media)" type="video/mp4">
+                Your browser does not support the video element.
+              </video>
+              <h2>
+                <a>{{ post.title }}</a>
+              </h2>
+              <p>{{ post.content }}</p>
+              <div class="date">{{ post.date_posted | date : "mediumDate" }}</div>
+            </div>
+          </div>
+          <div class="controls">
+            <div class="material-symbols-outlined social-btn heart" (click)="likeOrUnlikePost(post)">
+              heart_plus
+            </div>
+            {{ post.likes_count}}
+            <div class="editDeleteBtn">
+              
+              <a [routerLink]="['edit', post.id]" class="fas fa-edit fa-lg" *ngIf="post.user === authService.getUser().username"  ></a>
+
+              <a (click)="deletePost(post)" *ngIf="post.user === authService.getUser().username"
+                class="material-symbols-outlined social-btn del">Delete</a>
+            </div>
+            <div class="btn" *ngIf="post.user !== authService.getUser().username">
+              <div (click)="promptReason(post.id,post.content, post.user, post.media)">
+                <i class="fa-solid fa-flag"></i>
+              </div>
+            </div>
+          </div>
+          <div class="create-post">
+            <input type="text" placeholder="Add a Comment!!" [(ngModel)]="post.newComment" />
+            <input type="submit" value="Comment" class="btn btn-primary" (click)="addComment(post)" />
+          </div>
+          <div class="comment-feed" *ngIf="post.comments && post.comments.length">
+            <h4>Comments :</h4>
+            <div class="comment" *ngFor="let comment of post.comments">
+              <p>
+                <strong>@{{ comment.user }}:</strong> {{ comment.content }}
+              </p>
+              <p>{{ comment.created_at }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noPosts>
+  <div class="center" *ngIf="currentUser ">
+    <img src="./../../assets/images/no_post.jfif" alt="No posts available" class="placeholder-image">
+  </div>
+</ng-template>

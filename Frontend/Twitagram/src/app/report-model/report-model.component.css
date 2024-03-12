@@ -1,0 +1,54 @@
+.report-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+  }
+  
+  .report-container h2 {
+    margin-top: 0;
+  }
+  
+  .report-container p {
+    margin: 10px 0;
+  }
+  
+  .post-media {
+    max-width: 80%;
+    border: 1px solid;
+    border-radius: 10px;
+   
+  }
+  
+  .report-form {
+    margin-top: 20px;
+  }
+  
+  .reason-select {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid;
+  }
+  
+  .other-reason {
+    width: 100%;
+    height: 100px;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .submit-btn {
+    padding: 10px 20px;
+    background-color:var(--color-primary);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .submit-btn:hover {
+    background-color: #0056b3;
+  }
+  

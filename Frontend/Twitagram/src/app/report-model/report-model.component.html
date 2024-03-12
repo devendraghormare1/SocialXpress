@@ -1,0 +1,26 @@
+<div class="report-container">
+  <h2>Report Post</h2>
+  <!-- <p>Post ID: {{ postId }}</p> -->
+  <p>Post User: {{ postUser }}</p>
+  <p>Post Content: {{ postContent }}</p>
+  <p>Media: 
+    <img *ngIf="isImage(postMedia)" [src]="getCompleteImageUrl(postMedia)" alt="Image" class="post-media" />
+    <audio *ngIf="isAudio(postMedia)" controls>
+      <source [src]="getCompleteImageUrl(postMedia)" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <video *ngIf="isVideo(postMedia)" controls>
+      <source [src]="getCompleteImageUrl(postMedia)" type="video/mp4">
+      Your browser does not support the video element.
+    </video>
+  </p>
+  <form (ngSubmit)="submitReport()" class="report-form">
+    <label for="reason">Reason for reporting:</label>
+    <select id="reason" name="reason" [(ngModel)]="selectedReason" class="reason-select">
+      <option value="" disabled selected>Select a reason</option>
+      <option *ngFor="let reason of reasons" [value]="reason">{{ reason }}</option>
+    </select>
+    <textarea placeholder="Other reason" name="other-reason" [(ngModel)]="otherReason" *ngIf="selectedReason === 'Other'" class="other-reason"></textarea>
+    <button type="submit" class="submit-btn">Submit</button>
+  </form>
+</div>
