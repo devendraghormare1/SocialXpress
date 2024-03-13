@@ -15,6 +15,7 @@ export class HomeComponent {
   users: any[] = [];
   isLoading: boolean = false;
   errorMessage: string = '';
+
   currentUserName = localStorage.getItem('username')
 
   constructor( public authService: AuthService, private userService: FriendsService, private toaster: ToastrService) {

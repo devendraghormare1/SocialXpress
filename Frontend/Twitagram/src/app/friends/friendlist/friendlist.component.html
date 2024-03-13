@@ -1,6 +1,9 @@
 
   <div class="friend-requests">
     <h4>Friend List</h4>
+    <div *ngIf="friendList.length === 0" class="no-friends">
+      <p>No friend found</p>
+    </div>
     <div class="request" *ngFor="let friend of friendList">
       <div class="info">
         <div>

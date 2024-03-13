@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class FriendRequestsComponent implements OnInit {
   pendingRequests: any[] = [];
   userData: any[] = [];
+
   currentUserId: number = parseInt(localStorage.getItem('currentUserId') || '0');
 
   constructor(private postService: PostService , private friendService: FriendsService, private router:Router, private toaster: ToastrService) { }
