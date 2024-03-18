@@ -17,6 +17,7 @@ import { FriendlistComponent } from './friends/friendlist/friendlist.component';
 import { FriendsService } from './friends/friends.service';
 import { AuthGuard } from './authguard.guard';
 import { ReportModelComponent } from './report-model/report-model.component';
+import { ChatComponent } from './friends/chat/chat.component';
 
 
 
@@ -30,6 +31,7 @@ import { ReportModelComponent } from './report-model/report-model.component';
     FriendRequestsComponent,
     FriendlistComponent,
     ReportModelComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,

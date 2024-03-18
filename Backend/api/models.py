@@ -11,6 +11,8 @@ class CustomUser(AbstractUser):
     date_joined = models.DateTimeField(auto_now_add=True)
     groups = models.ManyToManyField(Group, related_name='customuser_groups', blank=True)
     user_permissions = models.ManyToManyField(Permission, related_name='customuser_permissions', blank=True)
+    security_question = models.CharField(max_length=255, blank=True, null=True)
+    security_answer = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return self.username
@@ -56,20 +58,19 @@ class FriendRequest(models.Model):
     )
     from_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='sent_requests')
     to_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='received_requests')
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')  # pending, accepted, rejected
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')  
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def accept(self):
-        if self.status == 'accepted':
-            # Check if a friend relationship already exists
-            if not Friend.objects.filter(user=self.from_user, friend=self.to_user).exists():
-                # Create Friend objects for both users
-                friend1 = Friend.objects.create(user=self.from_user, friend=self.to_user)
-                friend2 = Friend.objects.create(user=self.to_user, friend=self.from_user)
+    # def accept(self):
+    #     if self.status == 'accepted':
+    #         # Check if a friend relationship already exists
+    #         if not Friend.objects.filter(user=self.from_user, friend=self.to_user).exists():
+    #             friend1 = Friend.objects.create(user=self.from_user, friend=self.to_user)
+    #             friend2 = Friend.objects.create(user=self.to_user, friend=self.from_user)
 
-                # Update friend lists for both users
-                self.from_user.friends.add(self.to_user)
-                self.to_user.friends.add(self.from_user)
+    #             # Update friend lists for both users
+    #             self.from_user.friends.add(self.to_user)
+    #             self.to_user.friends.add(self.from_user)
 
 
     def __str__(self):

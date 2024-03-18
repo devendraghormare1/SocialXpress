@@ -6,6 +6,17 @@ interface User {
   email: string;
   password: string;
   password2?: string;
+  security_question: string;
+  security_answer: string;
+}
+
+interface formData{
+  username: string
+  security_question: string
+  security_answer: string
+  new_password: string
+  confirm_password: string
+
 }
 
 @Injectable({
@@ -25,6 +36,10 @@ export class ApiService {
   login(loginData: {username: string, password: string}): any {
     return this.http.post(`${this.API_URL}/token/`, loginData);
   }
+
+  resetPassword(userData: formData): any {
+    return this.http.post(`http://127.0.0.1:8000/api/forgot-password/`, userData);
+  }
   
   // User Operations
   getUserDetail(username: string): any {
@@ -42,5 +57,7 @@ export class ApiService {
   getCurrentUser(): any {
     return this.http.get(`${this.API_URL}/users/me/`);
   }
+
+ 
 
 }

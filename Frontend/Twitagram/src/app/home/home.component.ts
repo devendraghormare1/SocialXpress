@@ -26,27 +26,36 @@ export class HomeComponent {
     if (this.authService.isLoggedIn()) {
       this.currentUserId = parseInt(localStorage.getItem('currentUserId') || '0');
       this.loadUsers();
+      this.userService.getUsers()
     } 
   }
 
   
 
   loadUsers(): void {
-    this.isLoading = true;
+    // this.isLoading = true;
     
-    this.userService.getUsers().subscribe(
-      (data: any) => {
-        this.users = data.results.map((user: any) => ({
-          ...user,
-          requestSent: false 
-        }));
-        this.isLoading = false;
-      },
-      (error: any) => {
-        this.errorMessage = 'Error loading users. Please try again later.';
-        this.isLoading = false;
-      }
-    );
+    // this.userService.getUsers().subscribe(
+    //   (data: any) => {
+    //     this.users = data.results.map((user: any) => ({
+    //       ...user,
+    //       requestSent: false 
+    //     }));
+    //     this.isLoading = false;
+    //   },
+    //   (error: any) => {
+    //     this.errorMessage = 'Error loading users. Please try again later.';
+    //     this.isLoading = false;
+    //   }
+    // );
+
+    this.userService.getUsers().subscribe((data:any) => {
+      console.log(data)
+      this.users = data.results
+    },
+    (error: any) =>{
+      console.log(error)
+    })
   }
 
   sendFriendRequest(toUserId: number): void {

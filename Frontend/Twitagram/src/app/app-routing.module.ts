@@ -12,6 +12,7 @@ import { FriendlistComponent } from './friends/friendlist/friendlist.component';
 import { AuthGuard } from './authguard.guard';
 import { ReportModelComponent } from './report-model/report-model.component';
 import { CreateComponent } from './post/create/create.component';
+import { ChatComponent } from './friends/chat/chat.component';
 
 const routes: Routes = [
   { path: '',component: LoginComponent ,pathMatch: 'full' },
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'friend-list', component: FriendlistComponent, canActivate: [AuthGuard]},
   {path: 'report-model', component: ReportModelComponent, canActivate: [AuthGuard]},
   {path: 'feed/edit/:id', component:CreateComponent},
+  {path: 'friend-list/chat', component:ChatComponent},
   
 ];
 

@@ -9,17 +9,19 @@ import { RouterModule } from '@angular/router';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     AuthRoutingModule,
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

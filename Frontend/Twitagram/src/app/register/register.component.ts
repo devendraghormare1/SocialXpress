@@ -1,3 +1,4 @@
+// register.component.ts
 import { Component } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
@@ -13,8 +14,17 @@ export class RegisterComponent {
     username: '',
     email: '',
     password: '',
-    password2: ''
+    password2: '',
+    security_question: '',
+    security_answer: '',
   };
+
+
+  securityQuestions: string[] = [
+    'What is your mother\'s maiden name?',
+    'What city were you born in?',
+    'What is the name of your first pet?'
+  ];
 
   constructor(private apiService: ApiService, private router: Router, private toastr: ToastrService) { }
 
@@ -37,6 +47,12 @@ export class RegisterComponent {
       this.toastr.error('Passwords do not match.');
       return;
     }
+
+    if (!this.user.security_question || !this.user.security_answer) {
+      this.toastr.error('Please select a security question and provide an answer.');
+      return;
+    }
+
 
     this.apiService.register(this.user).subscribe(
       (data: any) => {

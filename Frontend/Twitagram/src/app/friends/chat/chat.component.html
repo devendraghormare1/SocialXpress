@@ -1,0 +1,56 @@
+<!-- <div class="chat-container">
+    <div class="messages-container">
+        <div class="messages">
+            <div *ngFor="let message of messages" class="container"
+                [ngClass]="{'darker': curr_user.id !== message.sender_name}">
+                <div *ngIf="curr_user.id !== message.sender_name" class="received-message">
+                    <p>{{ friend }}</p>
+                    <p>{{ message.description }}</p>
+                    <span class="time-left">{{ message.time }}</span>
+                </div>
+                <div *ngIf="curr_user.id === message.sender_name" class="sent-message">
+                    <p>{{ curr_user.username }}</p>
+                    <p>{{ message.description }}</p>
+                    <span class="time-right">{{ message.time }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="input-container">
+        <form (ngSubmit)="sendMessage()">
+            <input type="text" placeholder="Send a message..." [(ngModel)]="newMessage" name="newMessage" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</div> -->
+
+
+<div class="chat-box">
+    <div class="receiver-info">
+        <img src="../../../assets/default-1.png" alt="Receiver Profile Picture">
+        <p>{{ friend }}</p>
+    </div>
+    <div class="messages-container" #messagesContainer>
+        <div class="messages">
+            <div *ngFor="let message of messages" class="container"
+                [ngClass]="{'darker': curr_user.id !== message.sender_name}">
+                <div *ngIf="curr_user.id !== message.sender_name" class="received-message">
+                    <p>{{ friend }}</p>
+                    <p>{{ message.description }}</p>
+                    <span class="time-left">{{ message.time }}</span>
+                </div>
+                <div *ngIf="curr_user.id === message.sender_name" class="sent-message">
+                    <p>{{ curr_user.username }}</p>
+                    <p>{{ message.description }}</p>
+                    <span class="time-right">{{ message.time }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="input-container">
+        <form (ngSubmit)="sendMessage()">
+            <input type="text" placeholder="Send a message..." [(ngModel)]="newMessage" name="newMessage" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</div>

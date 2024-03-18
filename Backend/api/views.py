@@ -2,6 +2,7 @@ from django.forms import ValidationError
 from rest_framework import generics, status, viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from django.contrib.auth.hashers import make_password
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -11,7 +12,7 @@ from rest_framework.views import APIView
 from django.db.models import Q
 from .models import Post, Like, Comment, FriendRequest, Friend, CustomUser
 from .serializers import (UserRegistrationSerializer,PostSerializer,CommentSerializer,
-CustomTokenObtainPairSerializer,UserSerializer,UserProfileSerializer,AllUsersSerializer,FriendRequestSerializer,FriendSerializer,ReportSerializer,
+CustomTokenObtainPairSerializer,UserSerializer,UserProfileSerializer,AllUsersSerializer,FriendRequestSerializer,FriendSerializer,ReportSerializer,ForgotPasswordSerializer
 )
 
 User = get_user_model()
@@ -285,6 +286,7 @@ class ReportPostView(APIView):
         content = request.data.get('content')
         reason = request.data.get('reason')
         postUser = request.data.get('postUser')
+        
         if not all([postId,username, content, reason, postUser]):
             return Response({'error': 'Incomplete data provided'}, status=status.HTTP_400_BAD_REQUEST)
         report_data = {'postId':postId,'username': username, 'content': content, 'reason': reason, 'postUser': postUser}
@@ -292,4 +294,46 @@ class ReportPostView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ForgotPasswordAPIView(APIView):
+
+    authentication_classes = []  
+    permission_classes = [AllowAny] 
+
+    def post(self, request, *args, **kwargs):
+        serializer = ForgotPasswordSerializer(data=request.data)
+        if serializer.is_valid():
+            username = serializer.validated_data['username']
+            security_question = serializer.validated_data['security_question']
+            security_answer = serializer.validated_data['security_answer']
+            new_password = serializer.validated_data['new_password']
+            confirm_password = serializer.validated_data['confirm_password']
+            
+            # Retrieve user by username
+            try:
+                user = CustomUser.objects.get(username=username)
+            except CustomUser.DoesNotExist:
+                return Response({'error': 'User with this username does not exist.'}, status=status.HTTP_404_NOT_FOUND)
+            
+            # Verify security question and answer
+            if user.security_question != security_question or user.security_answer != security_answer:
+                return Response({'error': 'Incorrect security question or answer.'}, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Validate new password and confirm password
+            if new_password != confirm_password:
+                return Response({'error': 'New password and confirm password do not match.'}, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Update user's password
+            user.set_password(new_password)
+            user.save()
+            
+            # Generate tokens
+            refresh = RefreshToken.for_user(user)
+            access_token = str(refresh.access_token)
+            
+            # Include tokens in the response
+            return Response({'message': 'Password updated successfully.', 'access_token': access_token}, status=status.HTTP_200_OK)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

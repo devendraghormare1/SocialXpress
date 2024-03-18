@@ -120,3 +120,21 @@ button:hover {
   form .text h3 a:hover{
     text-decoration: underline;
   }
+
+  form .text h4 {
+    color: #333;
+    width: 100%;
+    text-align: left; 
+    margin: inherit;
+    margin-bottom: 10px; 
+    font-size: 0.8rem;
+}
+
+form .text h4 a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+form .text h4 a:hover {
+    text-decoration: underline;
+}

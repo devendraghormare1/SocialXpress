@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { FriendsService } from '../friends/friends.service';
 
 @Component({
   selector: 'app-login',
@@ -35,6 +36,7 @@ export class LoginComponent {
 
         this.toastr.success('Login Successful - Redirecting to feed!');
         this.router.navigate(['feed/']);
+      
         
       },
       (error: any) => {

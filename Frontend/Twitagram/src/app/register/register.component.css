@@ -1,3 +1,4 @@
+/* General styles */
 .login-container {
   text-align: center;
   margin-top: 50px;
@@ -8,11 +9,11 @@
 }
 
 input {
-  margin: 10px;
+  margin: 10px 0; /* Adjusted margin */
   padding: 10px;
   border-radius: 5px;
   border: 1px solid var(--color-500);
-  width: 100%;
+  width: calc(100% - 20px); /* Adjusted width */
   max-width: 300px;
   transition: all 0.2s ease-in-out;
 }
@@ -33,6 +34,7 @@ button:hover {
   color: var(--color-100);
 }
 
+/* Wrapper styles */
 .wrapper {
   position: relative;
   width: 100%;
@@ -70,11 +72,12 @@ button:hover {
   margin: 18px 0;
 }
 
-form .input-box input {
+/* Adjusted padding for input boxes */
+.wrapper form .input-box input{
   height: 100%;
   width: 100%;
   outline: none;
-  padding: 0 15px;
+  padding: 10px; /* Adjusted padding */
   font-size: 17px;
   font-weight: 400;
   color: #333;
@@ -85,10 +88,18 @@ form .input-box input {
 }
 
 .input-box input:focus,
-.input-box input:valid {
+.input-box input:valid,
+.input-box select:focus,
+.input-box select:valid {
   border-color: #4070f4;
 }
 
+/* Adjusted margin for input boxes */
+.wrapper form .input-box:nth-child(n+2) {
+  margin-top: 18px; /* Adjusted margin */
+}
+
+/* Text styles */
 form h3 {
   color: #707070;
   font-size: 14px;
@@ -108,22 +119,23 @@ form h3 {
   background: var(--color-primary);
 }
 
-form .text h3 {
+.form .text h3 {
   color: #333;
   width: 100%;
   text-align: center;
   margin: inherit;
 }
 
-form .text h3 a {
+.form .text h3 a {
   color: var(--color-primary);
   text-decoration: none;
 }
 
-form .text h3 a:hover {
+.form .text h3 a:hover {
   text-decoration: underline;
 }
 
+/* Illustration styles */
 .illustration {
   flex: 1; 
   margin-right: 20px; 
@@ -133,4 +145,17 @@ form .text h3 a:hover {
   max-width: 100%; 
   /* height: auto;  */
   height: 250px;
+}
+.wrapper form .input-box select {
+  height: 100%;
+  width: calc(100% - 70px); /* Adjusted width */
+  outline: none;
+  padding: 10px; /* Adjusted padding */
+  font-size: 17px;
+  font-weight: 400;
+  color: #333;
+  border: 1.5px solid #C7BEBE;
+  border-bottom-width: 2.5px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
 }

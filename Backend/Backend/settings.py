@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'api',
     # 'djoser',
     'rest_framework',
+    'chat',
 ]
 
 MIDDLEWARE = [

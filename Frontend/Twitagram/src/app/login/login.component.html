@@ -19,45 +19,6 @@
     </div> -->
 
 
-<!-- <div class="login-container">
-        <h3>Login</h3>
-        <form (submit)="onLogin()" #loginForm="ngForm">
-            <input type="text"
-                   [(ngModel)]="user.username"
-                   name="username"
-                   placeholder="Username"
-                   ngModel
-                   #username="ngModel"
-                   minlength="4"
-                   maxlength="10"
-                   required>
-    
-            <p class="invalid-input">
-                <span *ngIf="username.invalid && (username.touched || loginForm.submitted)">Please enter a valid Username</span>
-            </p>
-    
-            <input type="password"
-                   [(ngModel)]="user.password"
-                   name="password"
-                   placeholder="Password"
-                   ngModel
-                   #password="ngModel"
-                   [pattern]="passwordPattern"
-                   minlength="5"
-                   maxlength="20"
-                   required>
-    
-            <p class="invalid-input">
-                <span *ngIf="password.invalid && (password.touched || loginForm.submitted)">
-                    Password: 1 num, 1 special char, 1 uppercase, 5-20 characters.
-                </span>
-            </p>
-    
-            <button [disabled]="loginForm.invalid" type="submit">Login</button>
-        </form>
-    </div> -->
-
-
 
 <div class="wrapper">
   <h2>Login</h2>
@@ -76,6 +37,7 @@
     <input [disabled]="loginForm.invalid" type="Submit" value="Login" class="btn btn-primary">
 
     <div class="text">
+      <h4><a routerLink="/forgot-password">Forgot Password</a></h4>
       <h3>Don't have an account? <a routerLink="/register/">Signup</a></h3>
     </div>
   </form>

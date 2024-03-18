@@ -1,0 +1,106 @@
+/* Styles for the chat container */
+.chat-container {
+    height: 500px; /* Set an initial height */
+}
+
+/* Styles for the chat box */
+.chat-box {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+/* Styles for the receiver information */
+.receiver-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.receiver-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.receiver-info p {
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Styles for the messages container */
+.messages-container {
+    border: 1px solid;
+    margin-bottom: 5px;
+    max-height: 400px; 
+    overflow-y: auto;
+}
+
+/* Styles for the received message */
+.received-message {
+    background-color: #f1f1f1;
+    color: #333;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+    border: 1px solid;
+}
+
+/* Styles for the sent message */
+.sent-message {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+    margin-left: auto; /* Pushes the sent message to the right */
+}
+
+/* Styles for the timestamp */
+.time-left {
+    float: left;
+    color: #999;
+}
+
+.time-right {
+    float: right;
+    color: #fff;
+}
+
+/* Styles for the input container */
+.input-container {
+    padding: 10px;
+    background-color: #f9f9f9; /* Lighter shade for input container */
+}
+
+/* Styles for the input field */
+.input-container input[type="text"] {
+    width: calc(100% - 80px);
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+/* Styles for the send button */
+.input-container button {
+    width: 70px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+/* Hover effect for the send button */
+.input-container button:hover {
+    background-color: #45a049;
+}

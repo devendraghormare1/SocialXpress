@@ -9,7 +9,7 @@ class UserAdminView(admin.ModelAdmin):
 
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password')}),  
-        ('Personal Info', {'fields': ('bio', 'profile_picture', 'birthdate')}),  
+        ('Personal Info', {'fields': ('bio', 'profile_picture', 'birthdate','security_question', 'security_answer')}),  
         ('Permissions', {'fields': ('is_active',)})
     )
 
@@ -32,7 +32,8 @@ class UserAdminView(admin.ModelAdmin):
 admin.site.register(CustomUser, UserAdminView)
 
 class PostAdminView(admin.ModelAdmin):
-    list_display = ['user', 'title', 'content','media']
+    list_display = ['id','user', 'title', 'content','media']
+    search_fields = ('id',)
 admin.site.register(Post, PostAdminView)
 
 class CommentAdminView(admin.ModelAdmin):
@@ -57,6 +58,6 @@ class ReportAdminView(admin.ModelAdmin):
 admin.site.register(ReportedPost, ReportAdminView)
 
 
-admin.site.site_header = "Social Media"  
+admin.site.site_header = "SocialXpress"  
 admin.site.site_title = "Admin Pannel"   
-admin.site.index_title = "Social Media" 
+admin.site.index_title = "SocialXpress" 
