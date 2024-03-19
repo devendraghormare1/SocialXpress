@@ -21,3 +21,23 @@ export class AuthGuard implements CanActivate {
 
   
 }
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class NotAuthGuard implements CanActivate {
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  canActivate(): boolean {
+    if (!this.authService.isLoggedIn()) {
+      return true;
+    } else {
+      this.authService.logOut()
+      this.router.navigate(['/']);
+
+      return false;
+    }
+  }
+}

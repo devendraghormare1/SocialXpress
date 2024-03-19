@@ -31,6 +31,8 @@ export class LoginComponent {
         this.apiService.getUserProfile(data.username).subscribe((data: any) => {
           console.log("User id : " + JSON.stringify(data.id));
           localStorage.setItem('currentUserId', JSON.stringify(data.id));
+          localStorage.setItem('userProfile', JSON.stringify(data));
+
 
         })
 

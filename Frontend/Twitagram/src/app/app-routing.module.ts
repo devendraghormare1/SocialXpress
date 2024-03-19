@@ -23,8 +23,8 @@ const routes: Routes = [
   {path: 'friends', component: FriendsComponent, canActivate: [AuthGuard]},
   {path: 'friend-list', component: FriendlistComponent, canActivate: [AuthGuard]},
   {path: 'report-model', component: ReportModelComponent, canActivate: [AuthGuard]},
-  {path: 'feed/edit/:id', component:CreateComponent},
-  {path: 'friend-list/chat', component:ChatComponent},
+  {path: 'feed/edit/:id', component:CreateComponent, canActivate: [AuthGuard]},
+  {path: 'friend-list/chat', component:ChatComponent, canActivate: [AuthGuard]},
   
 ];
 

@@ -41,3 +41,10 @@ nav .create {
   height: fit-content;
   width: 54%;
 }
+
+nav .create a img {
+  height: auto; 
+  width: auto; 
+  max-height: 40px; 
+  max-width: 40px; 
+}

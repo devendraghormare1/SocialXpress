@@ -1,8 +1,10 @@
+import { ComponentFixture } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { FriendsService } from '../friends/friends.service';
 import { PostService } from '../post/post.service';
 import { ToastrService } from 'ngx-toastr';
+import { ApiService } from '../api.service';
 
 
 @Component({
@@ -15,11 +17,12 @@ export class HomeComponent {
   users: any[] = [];
   isLoading: boolean = false;
   errorMessage: string = '';
+  currentUserName:string = '';
+  userProfileData:any;
 
-  currentUserName = localStorage.getItem('username')
-
-  constructor( public authService: AuthService, private userService: FriendsService, private toaster: ToastrService) {
+  constructor( public authService: AuthService, private userService: FriendsService, private toaster: ToastrService, private userData: ApiService) {
     this.currentUserId = parseInt(localStorage.getItem('currentUserId') || '0');
+    this.currentUserName = (localStorage.getItem('username') || '');
   }
 
   ngOnInit(): void {
@@ -27,7 +30,18 @@ export class HomeComponent {
       this.currentUserId = parseInt(localStorage.getItem('currentUserId') || '0');
       this.loadUsers();
       this.userService.getUsers()
+      
+      this.userData.getUserProfile(this.currentUserName).subscribe((data:any) =>{
+        this.userProfileData = data
+
+      })
+
+      
     } 
+  }
+
+  getCompleteImageUrl(relativePath: string): string {
+    return `http://localhost:8000${relativePath}`;
   }
 
   
@@ -50,7 +64,6 @@ export class HomeComponent {
     // );
 
     this.userService.getUsers().subscribe((data:any) => {
-      console.log(data)
       this.users = data.results
     },
     (error: any) =>{

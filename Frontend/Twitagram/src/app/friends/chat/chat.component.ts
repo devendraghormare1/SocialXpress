@@ -15,8 +15,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     id: parseInt(localStorage.getItem('currentUserId') || '0'), 
     username: localStorage.getItem('username') }; 
 
-  messages: any[] = []; // Assuming messages will be an array of objects with description and time properties
-  newMessage: string = ''; // Holds the new message to be sent
+  messages: any[] = []; 
+  newMessage: string = ''; 
   private messageSubscription!: Subscription;
 
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef<HTMLDivElement>;
@@ -29,9 +29,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.friend = params['friend'];
-
-      console.log("This is my friend", this.friend);
-  console.log("Current user is ", this.curr_user)
 
       this.startReceivingMessages();
     });
@@ -53,7 +50,6 @@ export class ChatComponent implements OnInit, OnDestroy {
           console.log('Received messages:', data);
           if (data && Array.isArray(data.messages)) {
             this.messages = data.messages;
-            this.scrollToBottom();
           } else {
             console.error('Invalid data format received:', data);
           }
@@ -70,6 +66,8 @@ export class ChatComponent implements OnInit, OnDestroy {
         .subscribe(
           () => {
             this.newMessage = ''; 
+            this.scrollToBottom();
+
           },
           error => {
             console.error('Error sending message:', error);

@@ -1,9 +1,7 @@
-/* Styles for the chat container */
 .chat-container {
     height: 500px; /* Set an initial height */
 }
 
-/* Styles for the chat box */
 .chat-box {
     border: 1px solid black;
     border-radius: 10px;
@@ -11,7 +9,6 @@
     margin-bottom: 20px;
 }
 
-/* Styles for the receiver information */
 .receiver-info {
     display: flex;
     align-items: center;
@@ -30,7 +27,6 @@
     margin: 0;
 }
 
-/* Styles for the messages container */
 .messages-container {
     border: 1px solid;
     margin-bottom: 5px;
@@ -38,7 +34,6 @@
     overflow-y: auto;
 }
 
-/* Styles for the received message */
 .received-message {
     background-color: #f1f1f1;
     color: #333;
@@ -50,19 +45,17 @@
     border: 1px solid;
 }
 
-/* Styles for the sent message */
 .sent-message {
-    background-color: #4CAF50;
+    background-color: hsl(252, 80%, 72%);
     color: white;
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 10px;
     max-width: 70%;
     word-wrap: break-word;
-    margin-left: auto; /* Pushes the sent message to the right */
+    margin-left: auto; 
 }
 
-/* Styles for the timestamp */
 .time-left {
     float: left;
     color: #999;
@@ -73,13 +66,11 @@
     color: #fff;
 }
 
-/* Styles for the input container */
 .input-container {
     padding: 10px;
-    background-color: #f9f9f9; /* Lighter shade for input container */
+    background-color: #f9f9f9; 
 }
 
-/* Styles for the input field */
 .input-container input[type="text"] {
     width: calc(100% - 80px);
     padding: 10px;
@@ -89,7 +80,6 @@
     outline: none;
 }
 
-/* Styles for the send button */
 .input-container button {
     width: 70px;
     padding: 10px;
@@ -100,7 +90,134 @@
     cursor: pointer;
 }
 
-/* Hover effect for the send button */
 .input-container button:hover {
     background-color: #45a049;
 }
+
+
+
+.app-wrapper {
+    width: auto;
+    padding: 24px;
+    margin: auto;
+    border-radius: 10px;
+  }
+  
+  .app-header {
+    border-radius: 10px 10px 0 0;
+    background: var(--color-primary);
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    h2 {
+      font-size: 1.222rem;
+      font-weight: 800;
+    }
+    span.friend-status {
+      font-size: 0.666rem;
+    }
+  }
+  
+  .app-message-body {
+    background-color: rgba(233, 233, 233, 0.6);
+    padding: 24px 16px 0;
+    font-size: 0.8rem;
+    overflow-y: auto;
+    max-height: 50vh;
+  
+    
+    
+    .message-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .message-wrapper:nth-child(2n+1) {
+       align-items: flex-start;
+      .message-meta {
+        justify-content: flex-start;
+      }
+    }
+    
+    .message-wrapper:nth-child(2n) {
+      align-items: flex-end;
+      .message-meta {
+        flex-direction: row-reverse;
+      }
+    }
+  }
+  
+  .message {
+    max-width: 66.6%;
+    background-color: #fff;
+    padding: 8px;
+    border-radius: 5px;
+    box-shadow: 4px 4px rgba(200,200,200,0.25);
+    font-size: 0.9rem;
+    display: flex;
+    flex: 1 auto;
+  }
+  
+  .message-meta {
+    display: flex;
+    flex: 1 auto;
+    margin: 10px 5px 15px;
+    
+    .sender-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 9999px;
+      background: var(--color-primary);
+      color: #fff;
+      line-height: 24px;
+      text-align: center;
+      font-size: 0.666rem;
+      font-weight: 600;
+    }
+    .timestamp {
+      color: #999;
+      font-size: 0.666rem;
+      line-height: 24px;
+      display: inline-block;
+      margin: 0 5px;
+    }
+  }
+  
+  .app-input-area {
+    background-color: #fff;
+    border-radius: 0 0 10px 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    input[type=text] {
+      flex: 1 80%;
+      border: none;
+      padding: 0.33rem;
+      margin: auto 10px;
+      font: 0.9rem var(--font-face);
+      outline: none;
+    }
+    button[type=submit] {
+      flex: 1 5%;
+      border: none;
+      margin: 0 auto;
+      background-color: transparent;
+   
+      outline: none;
+      cursor: pointer;
+      svg {
+        fill:var(--color-primary);
+      }
+    }
+    button[type=submit]:hover {
+      svg {
+        fill: var(--color-primary);
+      }
+    }
+  }
+  
+  form{
+    margin-top: 10px;
+  }

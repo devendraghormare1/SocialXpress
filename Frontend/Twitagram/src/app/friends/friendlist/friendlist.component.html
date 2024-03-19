@@ -1,19 +1,26 @@
+<div class="friend-requests">
+  <h4>Friend List</h4>
+  <div *ngIf="friendList.length === 0" class="no-friends">
+    <p>No friend found</p>
+  </div>
+  <div class="request" *ngFor="let friend of friendList">
+    <div class="info">
+      <div>
+        <img [src]="friend.friend_profile_picture ? getCompleteImageUrl(friend.friend_profile_picture) : '../../assets/default-1.png'" alt="Profile Picture" class="profile-picture">
 
-  <div class="friend-requests">
-    <h4>Friend List</h4>
-    <div *ngIf="friendList.length === 0" class="no-friends">
-      <p>No friend found</p>
+      </div>
+      <div>
+        <h3 class="name">{{ friend.friend }}</h3>
+      </div>
     </div>
-    <div class="request" *ngFor="let friend of friendList">
-      <div class="info">
-        <div>
-          <h3>{{ friend.friend }}</h3>
-        </div>
-      </div>
-      <div class="action">
-        <button class="btn btn-Reject" [routerLink]="['chat']" [queryParams]="{ friend: friend.friend }">Chat</button>
-        <!-- <button class="btn btn-Reject" routerLink="chat">Chat</button> -->
-        <button class="btn btn-Reject" (click)="unfriendByUsername(friend.friend)">Unfriend</button>
-      </div>
+    <div class="action">
+      <button class="btn btn-Chat" [routerLink]="['chat']" [queryParams]="{ friend: friend.friend }">
+        <img src="../../../assets/chat.png" alt="Chat" class="chat-icon">
+      </button>
+      <!-- <button class="btn btn-Reject" routerLink="chat">Chat</button> -->
+      <button class="btn btn-Reject" (click)="unfriendByUsername(friend.friend)">
+        <img src="../../../assets/delete.png" alt="Unfriend" class="unfriend-icon">
+      </button>
     </div>
   </div>
+</div>

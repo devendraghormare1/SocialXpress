@@ -16,10 +16,14 @@ export class FriendlistComponent implements OnInit {
     this.getFriendList();
   }
 
+  getCompleteImageUrl(relativePath: string): string {
+    return `http://localhost:8000${relativePath}`;
+  }
+
+
   getFriendList(): void {
     this.friendService.getFriendList()
       .subscribe(response => {
-        console.log(response);
         this.friendList = response.results;
       });
   }

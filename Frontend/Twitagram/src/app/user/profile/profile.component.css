@@ -25,10 +25,6 @@ button:hover {
     color: var(--color-100);
 } 
 
-
-
-
-
 .card-container{
   width: 500px;
   height: auto;
@@ -112,6 +108,10 @@ button:hover {
 .lower-container .search-bar textarea,input{
     border-radius: var(--border-radius);
     padding: var(--search-padding);
+}
+
+form{
+  margin-top: 250px;
 }
 
 

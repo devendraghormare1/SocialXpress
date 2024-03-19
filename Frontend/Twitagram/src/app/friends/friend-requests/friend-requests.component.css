@@ -49,3 +49,9 @@
     border-radius: 10px;
     width: 50%;
   }
+
+.name{
+    margin-top: 14px;
+    color: #333; 
+    font-size: 1rem;
+}

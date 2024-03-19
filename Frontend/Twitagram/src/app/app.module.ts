@@ -20,7 +20,6 @@ import { ReportModelComponent } from './report-model/report-model.component';
 import { ChatComponent } from './friends/chat/chat.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,

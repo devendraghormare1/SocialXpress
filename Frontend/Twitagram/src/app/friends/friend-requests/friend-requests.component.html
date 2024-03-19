@@ -6,10 +6,10 @@
   <div class="request" *ngFor="let request of userData">
     <div class="info">
       <div class="profile-photo">
-        <img src="../../assets/images/profile-{{ request.id }}.jpg" alt="">
+        <img [src]="request.profile_picture ? request.profile_picture : '../../assets/default-1.png'" alt="">
       </div>
       <div>
-        <h5>{{ request.username }}</h5>
+        <h5 class=" name">{{ request.username }}</h5>
       </div>
     </div>
     <div class="action">

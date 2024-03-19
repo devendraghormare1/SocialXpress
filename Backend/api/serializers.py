@@ -2,6 +2,9 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import Post, Like, Comment, CustomUser, FriendRequest, Friend, ReportedPost
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
+import requests
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -42,6 +45,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         
         user.save()
         return user
+
+
     
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
@@ -54,6 +59,10 @@ class CommentSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
     user = serializers.StringRelatedField(read_only=True)
+    profile_picture = serializers.SerializerMethodField() 
+
+    def get_profile_picture(self, obj):
+        return obj.user.profile_picture.url if obj.user.profile_picture else None
     
     def create(self, validated_data):
         user = self.context['request'].user
@@ -75,8 +84,6 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'email', 'bio', 'date_joined', 'groups', 'user_permissions','profile_picture')
 
-
-
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
@@ -85,21 +92,29 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class AllUsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('id','username','email')
+        fields = ('id','username','email','profile_picture')
 
 class FriendRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = FriendRequest
         fields = ['id', 'from_user', 'to_user', 'status', 'created_at']
-        read_only_fields = ['status']  # Ensure status is read-only
+        read_only_fields = ['status']  
 
 class FriendSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField()  # Custom field to represent user details
-    friend = serializers.StringRelatedField()  # Custom field to represent friend details
+    user = serializers.StringRelatedField()  
+    friend = serializers.StringRelatedField()  
+    user_profile_picture = serializers.SerializerMethodField()  
+    friend_profile_picture = serializers.SerializerMethodField()
 
     class Meta:
         model = Friend
-        fields = ['id', 'user', 'friend', 'created_at']
+        fields = ['id', 'user', 'friend', 'user_profile_picture', 'friend_profile_picture', 'created_at']
+
+    def get_user_profile_picture(self, obj):
+        return obj.user.profile_picture.url if obj.user.profile_picture else None
+
+    def get_friend_profile_picture(self, obj):
+        return obj.friend.profile_picture.url if obj.friend.profile_picture else None
 
 
 class ReportSerializer(serializers.ModelSerializer):

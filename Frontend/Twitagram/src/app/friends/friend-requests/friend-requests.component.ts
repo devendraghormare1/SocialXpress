@@ -21,6 +21,11 @@ export class FriendRequestsComponent implements OnInit {
     this.getPendingRequests();
   }
 
+  getCompleteImageUrl(relativePath: string): string {
+    return `http://localhost:8000${relativePath}`;
+  }
+
+
   getPendingRequests(): void {
     this.friendService.getPendingRequests().subscribe(
       (response: any) => {
@@ -60,6 +65,7 @@ export class FriendRequestsComponent implements OnInit {
       () => {
         
         this.toaster.success(`You rejected the friend request`)
+        window.location.reload()
       },
       (error: any) => {
         this.toaster.error('Error rejecting friend request:', error)

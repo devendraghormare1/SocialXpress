@@ -11,12 +11,13 @@
       <input type="search" placeholder="search anything" />
     </div>
     <div class="create">
-      <label class="btn btn-primary" for="create-post" routerLink="/posts/create" routerLinkActive="active"
-      *ngIf="authService.isLoggedIn()"><i class="fa-solid fa-upload"></i></label>
-      
+      <!-- Replace with an image -->
+      <a routerLink="/posts/create" routerLinkActive="active" *ngIf="authService.isLoggedIn()">
+        <img src="../../assets/upload.png" alt="Create Post">
+      </a>
+
       <div class="profile-photo">
-        <img src="../../assets/images/profile-3.jpg" alt="" *ngIf="authService.isLoggedIn()"
-        routerLink="/users/{{ authService.getUser().username }}/profile"/>
+        <img [src]="getCompleteImageUrl(userData.profile_picture)" alt="" *ngIf="authService.isLoggedIn()" routerLink="/users/{{ authService.getUser().username }}/profile"/>
       </div>
     </div>
   </div>

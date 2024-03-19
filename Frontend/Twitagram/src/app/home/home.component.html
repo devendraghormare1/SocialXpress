@@ -7,7 +7,7 @@
       <a class="profile" *ngIf="authService.isLoggedIn()"
         routerLink="/users/{{ authService.getUser().username }}/profile">
         <div class="profile-photo">
-          <img src="../../assets/images/profile-3.jpg" alt="" />
+          <img [src]="userProfileData?.profile_picture ? getCompleteImageUrl(userProfileData.profile_picture) : '../../assets/default-1.png'" />
         </div>
         <div class="handle">
           <h4>{{ authService.getUser().username }}</h4>
@@ -66,10 +66,13 @@
         <div class="request" *ngFor="let user of users">
           <div class="info">
             <div class="profile-photo">
-              <img src="../../assets/images/profile-{{ user.id }}.jpg" alt="">
+              <a [routerLink]="['/users', user.username, 'profile']">
+                <img [src]="user.profile_picture ? user.profile_picture : '../../assets/default-1.png'" alt="User Profile Picture">
+              </a>
+
             </div>
             <div>
-              <h5>{{ user.username }}</h5>
+              <h5 class="name" [routerLink]="['/users', user.username, 'profile']">{{ user.username }}</h5>
 
             </div>
 

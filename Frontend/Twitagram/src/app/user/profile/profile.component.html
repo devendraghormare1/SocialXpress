@@ -1,45 +1,49 @@
-<div class="card-container">
-  <ng-container *ngIf="!isEditing; else editProfileSection">
-    <!-- Profile display section -->
-    <div class="upper-container">
-      <div class="image-container pro">
-        <img src="assets/images/profile-3.jpg" alt="Profile Picture" />
-      </div>
-    </div>
+<form [formGroup]="userProfileForm" enctype="multipart/form-data">
+  <div class="card-container">
+    <ng-container *ngIf="!isEditing; else editProfileSection">
+      <!-- Profile display section -->
+      <div class="upper-container">
+        <div class="image-container pro">
+          <img [src]="userProfile.profile_picture ? getCompleteImageUrl(userProfile.profile_picture) : '../../assets/default-1.png'" alt="Profile Picture" />
 
-    <div class="lower-container">
-      <div>
-        <h3>{{ userProfile.username }}</h3>
-        <h4>{{ userProfile.bio }}</h4>
+        </div>
       </div>
-      <div>
-        <p>E-mail: {{ userProfile.email }}</p>
-        <p>Birthdate: {{ userProfile.birthdate }}</p>
-      </div>
-    </div>
-    <!-- "Edit Profile" button -->
-    <div class="lower-container" *ngIf="currentUser && userProfile && currentUser.username === userProfile.username">
-      <button class="btn" (click)="toggleEditMode()">Edit Profile</button>
-      <p>Date Joined: {{ userProfile.date_joined | date : "mediumDate" }}</p>
-    </div>
-  </ng-container>
 
-  <!-- Edit profile section -->
-  <ng-template #editProfileSection>
-    <div class="upper-container">
-      <div class="image-container">
-        <img [src]="'assets/default-1.png'" alt="Profile Picture"/>
+      <div class="lower-container">
+        <div>
+          <h3>{{ userProfile.username }}</h3>
+          <h4>{{ userProfile.bio }}</h4>
+        </div>
+        <div>
+          <p>E-mail: {{ userProfile.email }}</p>
+          <p>Birthdate: {{ userProfile.birthdate }}</p>
+        </div>
       </div>
-    </div>
-    <div class="lower-container">
-      <h3>{{ userProfileForm.get("username")?.value }}</h3>
-      <p>E-mail: {{ userProfileForm.get("email")?.value }}</p>
-      <div class="search-bar">
-        <input type="date" formControlName="birthdate" />
-        <textarea formControlName="bio" placeholder="Enter Bio" cols="40" rows="5"></textarea>
+      <!-- "Edit Profile" button -->
+      <div class="lower-container" *ngIf="currentUser && userProfile && currentUser.username === userProfile.username">
+        <button class="btn" (click)="toggleEditMode()">Edit Profile</button>
+        <p>Date Joined: {{ userProfile.date_joined | date : "mediumDate" }}</p>
       </div>
-      <button class="btn btn-primary" type="submit">Save Changes</button>
-      <button class="btn btn-primary" (click)="toggleEditMode()">Cancel</button>
-    </div>
-  </ng-template>
-</div>
+    </ng-container>
+
+    <!-- Edit profile section -->
+    <ng-template #editProfileSection>
+      <div class="upper-container">
+        <div class="image-container">
+          <img [src]="getCompleteImageUrl(userProfile.profile_picture)" alt="Profile Picture"/>
+          <input type="file" (change)="onProfilePictureSelected($event)" accept="image/*">
+        </div>
+      </div>
+      <div class="lower-container">
+        <h3>{{ userProfileForm.get("username")?.value }}</h3>
+        <p>E-mail: {{ userProfileForm.get("email")?.value }}</p>
+        <div class="search-bar">
+          <input type="date" formControlName="birthdate" />
+          <textarea formControlName="bio" placeholder="Enter Bio" cols="40" rows="5"></textarea>
+        </div>
+        <button class="btn btn-primary" (click)="onSubmit()">Save Changes</button>
+        <button class="btn btn-primary" (click)="toggleEditMode()">Cancel</button>
+      </div>
+    </ng-template>
+  </div>
+</form>

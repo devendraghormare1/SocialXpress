@@ -27,7 +27,6 @@ export class FollowerFeedComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.authService.getUser();
-    console.log(this.currentUser.username);
 
     this.postService.getUserFeed(this.currentUser.username).subscribe(
       (data) => {
@@ -50,21 +49,16 @@ export class FollowerFeedComponent implements OnInit {
   }
 
   getCompleteImageUrl(relativePath: string): string {
-    // Assuming relativePath is the path obtained from post.media
     return `http://localhost:8000${relativePath}`;
   }
-    // Add these helper methods in your component class
     isImage(mediaUrl: string): boolean {
-      // Check if the URL ends with a common image extension
       return /\.(jpg|jpeg|png|gif)$/i.test(mediaUrl);
     }
   
     isAudio(mediaUrl: string): boolean {
-      // Check if the URL ends with a common audio extension
       return /\.(mp3|ogg|wav)$/i.test(mediaUrl);
     }
     isVideo(mediaUrl: string): boolean {
-      // Check if the URL ends with a common video extension
       return /\.(mp4|webm|mkv)$/i.test(mediaUrl);
     }
 

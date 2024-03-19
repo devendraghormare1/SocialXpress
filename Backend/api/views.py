@@ -24,16 +24,16 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     lookup_field = 'username'
 
-    @action(detail=True, methods=['GET', 'POST', 'PUT'], url_path='profile', url_name='user_profile')
+    @action(detail=True, methods=['GET', 'PUT'], url_path='profile', url_name='user_profile')
     def user_profile(self, request, pk=None, *args, **kwargs):
         user = self.get_object()
-        if request.method == 'PUT':  # PUT method
+        if request.method == 'PUT':  # PUT method for updating profile
             serializer = UserProfileSerializer(user, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        else:  # GET method
+        else:  # GET method for retrieving profile
             serializer = UserProfileSerializer(user)
             return Response(serializer.data, status=status.HTTP_200_OK)
 

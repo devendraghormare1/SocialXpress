@@ -25,32 +25,57 @@
 </div> -->
 
 
-<div class="chat-box">
-    <div class="receiver-info">
-        <img src="../../../assets/default-1.png" alt="Receiver Profile Picture">
-        <p>{{ friend }}</p>
+
+<div class="app-wrapper">
+    <div class="app-header">
+      <h2>{{ friend }}</h2>
     </div>
-    <div class="messages-container" #messagesContainer>
-        <div class="messages">
-            <div *ngFor="let message of messages" class="container"
-                [ngClass]="{'darker': curr_user.id !== message.sender_name}">
-                <div *ngIf="curr_user.id !== message.sender_name" class="received-message">
-                    <p>{{ friend }}</p>
-                    <p>{{ message.description }}</p>
-                    <span class="time-left">{{ message.time }}</span>
-                </div>
-                <div *ngIf="curr_user.id === message.sender_name" class="sent-message">
-                    <p>{{ curr_user.username }}</p>
-                    <p>{{ message.description }}</p>
-                    <span class="time-right">{{ message.time }}</span>
-                </div>
-            </div>
+    <div class="app-message-body" #messagesContainer >
+      <div class="message-wrapper">
+          <div
+          *ngFor="let message of messages"
+          class="container"
+          [ngClass]="{ darker: curr_user.id !== message.sender_name }"
+        >
+          <div
+            *ngIf="curr_user.id !== message.sender_name"
+            class=" received-message" style="padding-bottom: 1.5rem;"
+          >
+            <p style="font-weight: 700;" >{{ friend }}</p>
+            <p>{{ message.description }}</p>
+            <span class="time-left">{{ message.time }}</span>
+          </div>
+          <div *ngIf="curr_user.id === message.sender_name" class="sent-message" style="padding-bottom: 1.5rem;">
+            <p style="font-weight: 700;" >{{ curr_user.username }}</p>
+            <p>{{ message.description }}</p>
+            <span class="time-right">{{ message.time  }}</span>
+          </div>
         </div>
     </div>
-    <div class="input-container">
-        <form (ngSubmit)="sendMessage()">
-            <input type="text" placeholder="Send a message..." [(ngModel)]="newMessage" name="newMessage" required>
-            <button type="submit">Send</button>
-        </form>
-    </div>
+  
 </div>
+<form id="messageForm" (ngSubmit)="sendMessage()" style="margin-bottom: 1rem;">
+  <div class="app-input-area">
+    <input type="text" placeholder="Your message here..." [(ngModel)]="newMessage"
+    name="newMessage"
+    required />
+    <button type="submit">
+      <svg
+        viewBox="0 0 512 512"
+        x="0px"
+        y="0px"
+        style="enable-background: new 0 0 512 512"
+        width="25"
+        height="25"
+        title="paper-plane"
+      >
+        <path
+          fill=""
+          d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"
+        />
+      </svg>
+    </button>
+  </div>
+</form>
+  </div>
+  

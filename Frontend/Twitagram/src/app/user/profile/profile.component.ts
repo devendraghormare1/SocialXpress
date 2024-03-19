@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
-import { RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -22,7 +21,6 @@ export class ProfileComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.userProfileForm = this.fb.group({
-      // profile_picture: [''],
       bio: [{value:''}],
       username: [{value:'', disabled: true}],
       email: [{value:'', disabled: true}],
@@ -35,38 +33,37 @@ export class ProfileComponent implements OnInit {
 
     this.apiService.getUserProfile(username).subscribe(
       (data: any) => {
-        console.log('User profile:', data);
         this.userProfile = data;
         if (this.userProfile.profile_picture == null) {
           this.userProfile.profile_picture = "assets/default-1.png";
-      }
-    },
+        }
+        this.userProfileForm.patchValue(this.userProfile);
+      },
       (error: any) => {
         console.error('Error fetching user profile:', error);
       }
     );
-    // Fetch the currently logged in user
+
     this.apiService.getCurrentUser().subscribe(
       (data: any) => {
-        console.log('Current user:', data);
         this.currentUser = data;
       },
       (error: any) => {
         console.error('Error fetching current user:', error);
       }
     );
-    this.userProfileForm.patchValue(this.userProfile);
   }
 
   getCompleteImageUrl(relativePath: string): string {
-    // Assuming relativePath is the path obtained from post.media
     return `http://localhost:8000${relativePath}`;
   }
 
   toggleEditMode(): void {
     this.isEditing = !this.isEditing;
     if (this.isEditing) {
-      this.userProfileForm.patchValue(this.userProfile); 
+      this.userProfileForm.enable();
+    } else {
+      this.userProfileForm.disable();
     }
   }
 
@@ -79,19 +76,22 @@ export class ProfileComponent implements OnInit {
 
   onSubmit(): void {
     if (this.userProfileForm.valid) {
-      const formData = this.userProfileForm.getRawValue();
-      console.log(formData)
+      const formData = new FormData();
+      formData.append('bio', this.userProfileForm.get('bio')?.value);
+      formData.append('username', this.userProfileForm.get('username')?.value);
+      formData.append('email', this.userProfileForm.get('email')?.value);
+      formData.append('birthdate', this.userProfileForm.get('birthdate')?.value);
       if (this.selectedProfilePicture) {
-        formData.profile_picture = this.selectedProfilePicture;
+        formData.append('profile_picture', this.selectedProfilePicture, this.selectedProfilePicture.name);
       }
-      this.apiService.updateUserProfile(formData.username, formData).subscribe(
+
+      
+      this.apiService.updateUserProfile(this.userProfileForm.get('username')?.value, formData).subscribe(
         (response: any) => {
           console.log('User profile updated successfully:', response);
-          if (response.profile_picture == null) {
-            response.profile_picture = "assets/default-1.png";
-          }
           this.userProfile = response;
           this.isEditing = false;
+          window.location.reload()
         },
         (error: any) => {
           console.error('Error updating user profile:', error);
