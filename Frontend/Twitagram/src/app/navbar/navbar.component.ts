@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
     if(this.username){
     this.userService.getUserProfile(this.username).subscribe((data:any) =>{
       this.userData = data
+      console.log('navbar',this.userData)
     })
   }
     

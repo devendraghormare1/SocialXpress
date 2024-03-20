@@ -58,4 +58,5 @@
 .name  {
     color: #333; 
     margin-top: 17px; 
+    text-transform: capitalize;
 }

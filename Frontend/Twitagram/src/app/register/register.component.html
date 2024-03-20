@@ -60,7 +60,7 @@
       </p>
     </div>
 
-    <div class="input-box">
+    <div class="input-box security">
       <select [(ngModel)]="user.security_question" name="securityQuestion" required>
         <option value="" disabled selected>Select Security Question</option>
         <option *ngFor="let question of securityQuestions" [value]="question">{{ question }}</option>

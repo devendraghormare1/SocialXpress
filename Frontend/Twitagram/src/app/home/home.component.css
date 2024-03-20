@@ -101,6 +101,9 @@ main .container .left .profile{
     text-align: center;
     padding: 1rem 0;
 }
+.handle{
+    text-transform: capitalize;
+}
 
 
 
@@ -144,6 +147,7 @@ main .container .left .profile{
     margin-top: 13px;
     font-size: 1rem;
     cursor: pointer;
+    text-transform: capitalize;
 }
 
 

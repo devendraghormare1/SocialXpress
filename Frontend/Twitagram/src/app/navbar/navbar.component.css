@@ -48,3 +48,14 @@ nav .create a img {
   max-height: 40px; 
   max-width: 40px; 
 }
+
+.navProfile{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.username{
+  text-transform: capitalize;
+}

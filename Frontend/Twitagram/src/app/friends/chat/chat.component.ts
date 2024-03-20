@@ -47,7 +47,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         (data: any) => {
-          console.log('Received messages:', data);
+          // console.log('Received messages:', data);
           if (data && Array.isArray(data.messages)) {
             this.messages = data.messages;
           } else {
